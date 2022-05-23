@@ -1,6 +1,6 @@
 import React from 'react';
 
-import s from '../MainPage/MainPage.module.scss';
+import s from '../mainPage/MainPage.module.scss';
 
 import style from './ErorPage.module.scss';
 

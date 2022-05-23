@@ -12,7 +12,6 @@ type InitialState = {
   loading: boolean;
   repos: Repo[];
   currentPage: number;
-  pageCount: number;
 };
 const initialState = {
   user: {} as User,
@@ -20,10 +19,9 @@ const initialState = {
   loading: false,
   repos: [] as Repo[],
   currentPage: 1,
-  pageCount: 5,
 };
 
-export const userReducer = (state = initialState, action: any): InitialState => {
+export const userReducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case 'USER/GET-USER':
       return { ...state, user: action.user };
@@ -32,7 +30,7 @@ export const userReducer = (state = initialState, action: any): InitialState => 
       return { ...state, error: action.error };
 
     case 'USER/INCLUDE-LOADING':
-      return { ...state, loading: true };
+      return { ...state, loading: action.loading };
     case 'USER/GET-REPO':
       return { ...state, repos: action.repos };
     case 'TABLE/SET-CURRENT-PAGE':
@@ -50,43 +48,43 @@ export const setCurrentPageAC = (currentPage: number) =>
 export const handleError = (error: string) =>
   ({ type: 'USER/HANDLE-ERROR', error } as const);
 
-export const includeLoading = (loading: boolean) =>
+export const showLoading = (loading: boolean) =>
   ({ type: 'USER/INCLUDE-LOADING', loading } as const);
 
 export const getRepos = (repos: any) => ({ type: 'USER/GET-REPO', repos } as const);
 
 export const getUser = (name: string) => async (dispatch: Dispatch<Action>) => {
-  dispatch(includeLoading(true));
   try {
+    dispatch(showLoading(true));
     const response = await axios.get<User>(`https://api.github.com/users/${name}`);
-
     dispatch(getOneUser(response.data));
-    dispatch(includeLoading(false));
+    dispatch(showLoading(false));
     dispatch(handleError(''));
   } catch (e: any) {
     dispatch(handleError(e.message));
-    dispatch(includeLoading(false));
+    dispatch(showLoading(false));
   }
 };
 type Action =
   | ReturnType<typeof getOneUser>
   | ReturnType<typeof handleError>
-  | ReturnType<typeof includeLoading>;
-
-type RepoAction =
+  | ReturnType<typeof showLoading>
   | ReturnType<typeof getRepos>
   | ReturnType<typeof handleError>
   | ReturnType<typeof setCurrentPageAC>;
 export const getRepositories =
   (name: string, currentPage: number) =>
-  async (dispatch: Dispatch<RepoAction>, getState: () => RootState) => {
+  async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     try {
+      dispatch(showLoading(true));
       const response2 = await axios.get(
         `https://api.github.com/users/${name}/repos?per_page=4&page=${currentPage}`,
       );
       dispatch(getRepos(response2.data));
       dispatch(setCurrentPageAC(getState().userReducer.currentPage));
+      dispatch(showLoading(false));
     } catch {
       dispatch(handleError('error'));
+      dispatch(showLoading(false));
     }
   };

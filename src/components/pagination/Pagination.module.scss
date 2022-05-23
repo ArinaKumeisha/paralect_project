@@ -1,43 +1,46 @@
-
 .container {
   display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
   padding: 0;
   gap: 16px;
-  position: absolute;
-  width: 337px;
   height: 25px;
   left: 960px;
   top: 715px;
-
-  .countRepo{
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-   color: #808080;
-    margin-right: 20px;
-    white-space: nowrap;
-  }
-  .paginator {
-    display: flex;
+  @media (max-width: 1300px) {
+    justify-content: center;
   }
 
-  li {
-    list-style-type: none;
-    cursor: pointer;
-    margin: 5px;
-    font-family: 'Inter', sans-serif;
+  .countRepo {
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
     color: #808080;
+    margin-right: 20px;
+    white-space: nowrap;
   }
 
-  .active {
-    padding: 3px;
-    border-radius: 3px;
-    color: #FFFFFF;
-    background: #0064EB;
+  .paginator {
+    display: flex;
   }
 }
+
+li {
+  list-style-type: none;
+  cursor: pointer;
+  margin: 5px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #808080;
+}
+
+li:active, li:hover, li:focus {
+  padding: 3px;
+  border-radius: 3px;
+  color: #FFFFFF;
+  background: #0064EB;
+
+}
+

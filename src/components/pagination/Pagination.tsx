@@ -11,23 +11,22 @@ import { getRepositories } from 'redux/userReducer';
 export const Pagination = () => {
   const dispatch = useDispatch();
   const name = useSelector<RootState, string>(state => state.userReducer.user.name);
+  const [active, setActive] = useState(false);
   const pageRepoCount = useSelector<RootState, number>(
     state => state.userReducer.user.public_repos,
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [firstItem, setFirstItem] = useState(1);
-  const amountItemInPage = 4;
   const handlePageClick = (e: { selected: number }) => {
-    const number = (e.selected += 1);
-    setFirstItem(amountItemInPage * number - 3);
+    const number = e.selected + 1;
+    setFirstItem(number);
     dispatch(getRepositories(name, number));
   };
   const pageCountInPage = Math.ceil(pageRepoCount / 4);
-
   return (
     <div className={style.container}>
       <h2 className={style.countRepo}>
-        {firstItem} - {firstItem + 3 > pageRepoCount ? pageRepoCount : firstItem + 3}
+        {/* {firstItem} - {firstItem + 3} > {pageRepoCount} ? {pageRepoCount} : {firstItem + 3} */}
         <span> of </span>
         {pageRepoCount} <span> items </span>
       </h2>
@@ -39,7 +38,8 @@ export const Pagination = () => {
         pageCount={pageCountInPage}
         previousLabel="<"
         className={style.paginator}
-        activeClassName={style.active}
+        containerClassName={style.paginator}
+        activeLinkClassName={style.active}
       />
     </div>
   );

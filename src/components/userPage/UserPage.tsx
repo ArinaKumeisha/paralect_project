@@ -9,6 +9,7 @@ import { EmptyPage } from 'components/emptyPage/EmptyPage';
 import { ErrorPage } from 'components/errorPage/ErrorPage';
 import { Pagination } from 'components/pagination/Pagination';
 import { Repos } from 'components/repos/Repos';
+import { Spinner } from 'components/spinner/Spinner';
 import group from 'mainStyles/svg/group_24px.svg';
 import person from 'mainStyles/svg/person_24px.svg';
 import { RootState } from 'redux/store';
@@ -18,16 +19,21 @@ import { User } from 'types';
 export const UserPage = () => {
   const user = useSelector<RootState, User>(state => state.userReducer.user);
   const error = useSelector<RootState, string>(state => state.userReducer.error);
+  const loading = useSelector<RootState, boolean>(state => state.userReducer.loading);
   const dispatch = useDispatch();
   const { userName } = useParams();
   useEffect(() => {
     dispatch(getUser(userName!));
     dispatch(getRepositories(userName!, 1));
   }, []);
+
+  if (error) {
+    return <ErrorPage />;
+  }
   return (
     <div>
-      {error ? (
-        <ErrorPage />
+      {loading ? (
+        <Spinner />
       ) : (
         <div className={style.container}>
           <div className={style.block}>
@@ -44,7 +50,7 @@ export const UserPage = () => {
                 <div className={style.following}>{user.following} following</div>
               </div>
             </div>
-            {user.public_repos ? <EmptyPage /> : <Repos />}
+            {!user.public_repos ? <EmptyPage /> : <Repos />}
           </div>
           <Pagination />
         </div>

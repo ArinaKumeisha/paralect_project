@@ -2,7 +2,7 @@ import React from 'react';
 
 import iconSearch from '../../mainStyles/svg/image.svg';
 
-import style from 'components/MainPage/MainPage.module.scss';
+import style from 'components/mainPage/MainPage.module.scss';
 
 export const MainPage = () => (
   <div className={style.block}>
