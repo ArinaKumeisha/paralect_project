@@ -1,3 +1,10 @@
 import React from 'react';
 
-export const App = () => <div className="App">dd</div>;
+import './mainStyles/fonts.css';
+import { Main } from 'components/main/Main';
+
+export const App = () => (
+  <div className="App">
+    <Main />
+  </div>
+);

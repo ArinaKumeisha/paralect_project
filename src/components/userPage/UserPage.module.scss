@@ -1,0 +1,100 @@
+.container {
+  background-color: #E5E5E5;
+
+  .block {
+    display: flex;
+    min-height: 696px;
+    margin-left: 57px;
+    @media(max-width: 700px) {
+      flex-wrap: wrap;
+    }
+    @media(max-width: 335px) {
+      margin-left: 35px;
+    }
+
+    .userInfo {
+      display: flex;
+      flex-direction: column;
+
+      .userPhoto {
+        width: 280px;
+        height: 280px;
+        background-color: #61dafb;
+        margin: 39px 96px 29px 0;
+        border-radius: 50%;
+        @media(max-width: 390px) {
+          width: 230px;
+          height: 230px;
+        }
+        @media(max-width: 350px) {
+          width: 200px;
+          height: 200px;
+        }
+
+      }
+
+      .name {
+        font-weight: 600;
+        font-size: 26px;
+      }
+
+      .nickName {
+        color: #0064EB;
+        font-weight: 400;
+        font-size: 18px;
+        margin-bottom: 25px;
+      }
+
+      .follow, {
+        display: flex;
+        flex-wrap: wrap;
+
+        .followers, .following {
+          font-weight: 400;
+          font-size: 16px;
+          margin-right: 20px;
+          @media(max-width: 350px) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .repo {
+      display: flex;
+      flex-direction: column;
+      width: 877px;
+      min-height: 30px;
+
+      .title {
+        margin-top: 28px;
+        font-weight: 600;
+        font-size: 32px;
+      }
+
+      .elem {
+        //width: 877px;
+        min-height: 107px;
+        background-color: #FFFFFF;
+        margin-bottom: 24px;
+        border-radius: 6px;
+        padding: 24px 32px;
+        @media all and (max-width: 1100px) {
+          max-width: 87%;
+        }
+
+        .repoName {
+          font-weight: 500;
+          font-size: 24px;
+          color: #0064EB;
+          margin-bottom: 16px;
+        }
+
+        .desc {
+          font-weight: 400;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

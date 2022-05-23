@@ -1,0 +1,22 @@
+.block {
+  margin-top: 219px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .searchIcon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .record {
+    width: 207px;
+    height: 62px;
+    color: #808080;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 140%;
+    text-align: center;
+  }
+}
+

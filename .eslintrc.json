@@ -41,6 +41,7 @@
     "@typescript-eslint/no-shadow": [
       "error"
     ],
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-unused-vars": [
       "error"
     ],
@@ -54,8 +55,6 @@
     "@typescript-eslint/no-use-before-define": [
       "error"
     ],
-    "@typescript-eslint/explicit-function-return-type": "off",
-    //задизейблила возвращаемый тип
     "prettier/prettier": "error",
     "react/prop-types": 0,
     "react/display-name": "off",
@@ -131,3 +130,4 @@
     }
   }
 }
+

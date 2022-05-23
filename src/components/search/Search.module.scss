@@ -1,0 +1,33 @@
+.footer {
+  display: flex;
+  width: 100%;
+  height: 72px;
+  background-color: #0064EB;
+
+  .icon {
+    width: 41px;
+    height: 40px;
+    margin: 16px 22px 16px 41px;
+
+    @media (max-width: 375px) {
+      margin: 16px 5px 16px 14px;
+    }
+  }
+
+  .input {
+    max-width: 500px;
+    height: 40px;
+    margin: 16px 22px;
+    padding-left: 44px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    background-image: url('../../mainStyles/svg/miniSearch.svg');
+    background-repeat: no-repeat;
+    background-position: 19px;
+    border: none;
+    outline: none;
+  }
+}
