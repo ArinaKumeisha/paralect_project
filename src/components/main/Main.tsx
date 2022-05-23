@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import style from './Main.module.scss';
 
-import { MainPage, Search, UserPage, ErrorPage } from 'components';
+import { ErrorPage, MainPage, Search, UserPage } from 'components';
 
 export const Main = () => {
   const [name, setName] = useState<string>('');

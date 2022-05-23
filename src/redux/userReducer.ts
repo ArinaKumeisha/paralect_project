@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 
 import axios from 'axios';
 
+import { RootState } from 'redux/store';
 import { User } from 'types';
 import { Repo } from 'types/types';
 
@@ -77,13 +78,14 @@ type RepoAction =
   | ReturnType<typeof handleError>
   | ReturnType<typeof setCurrentPageAC>;
 export const getRepositories =
-  (name: string, currentPage: number) => async (dispatch: Dispatch<RepoAction>) => {
+  (name: string, currentPage: number) =>
+  async (dispatch: Dispatch<RepoAction>, getState: () => RootState) => {
     try {
       const response2 = await axios.get(
         `https://api.github.com/users/${name}/repos?per_page=4&page=${currentPage}`,
       );
       dispatch(getRepos(response2.data));
-      dispatch(setCurrentPageAC(currentPage));
+      dispatch(setCurrentPageAC(getState().userReducer.currentPage));
     } catch {
       dispatch(handleError('error'));
     }

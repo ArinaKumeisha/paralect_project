@@ -3,7 +3,7 @@
 
   .block {
     display: flex;
-    min-height: 696px;
+    min-height: 700px;
     margin-left: 57px;
     @media(max-width: 700px) {
       flex-wrap: wrap;
@@ -30,7 +30,6 @@
           width: 200px;
           height: 200px;
         }
-
       }
 
       .name {

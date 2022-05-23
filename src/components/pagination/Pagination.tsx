@@ -14,25 +14,33 @@ export const Pagination = () => {
   const pageRepoCount = useSelector<RootState, number>(
     state => state.userReducer.user.public_repos,
   );
-  const [currentItems, setCurrentItems] = useState(1);
-
-  const handlePageClick = (event: { selected: number }) => {
-    const number = event.selected;
-    setCurrentItems(number);
-    dispatch(getRepositories(name, number + 1));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [firstItem, setFirstItem] = useState(1);
+  const amountItemInPage = 4;
+  const handlePageClick = (e: { selected: number }) => {
+    const number = (e.selected += 1);
+    setFirstItem(amountItemInPage * number - 3);
+    dispatch(getRepositories(name, number));
   };
   const pageCountInPage = Math.ceil(pageRepoCount / 4);
 
   return (
-    <ReactPaginate
-      breakLabel="..."
-      nextLabel=">"
-      onPageChange={handlePageClick}
-      pageRangeDisplayed={5}
-      pageCount={pageCountInPage}
-      previousLabel="<"
-      className={style.paginator}
-      activeClassName={style.active}
-    />
+    <div className={style.container}>
+      <h2 className={style.countRepo}>
+        {firstItem} - {firstItem + 3 > pageRepoCount ? pageRepoCount : firstItem + 3}
+        <span> of </span>
+        {pageRepoCount} <span> items </span>
+      </h2>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel=">"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCountInPage}
+        previousLabel="<"
+        className={style.paginator}
+        activeClassName={style.active}
+      />
+    </div>
   );
 };

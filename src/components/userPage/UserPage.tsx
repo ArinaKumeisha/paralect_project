@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import style from './UserPage.module.scss';
 
+import { EmptyPage } from 'components/emptyPage/EmptyPage';
 import { ErrorPage } from 'components/errorPage/ErrorPage';
 import { Pagination } from 'components/pagination/Pagination';
+import { Repos } from 'components/repos/Repos';
 import group from 'mainStyles/svg/group_24px.svg';
 import person from 'mainStyles/svg/person_24px.svg';
 import { RootState } from 'redux/store';
+import { getRepositories, getUser } from 'redux/userReducer';
 import { User } from 'types';
-import { Repo } from 'types/types';
 
 export const UserPage = () => {
   const user = useSelector<RootState, User>(state => state.userReducer.user);
-  const repos = useSelector<RootState, Repo[]>(state => state.userReducer.repos);
   const error = useSelector<RootState, string>(state => state.userReducer.error);
-
+  const dispatch = useDispatch();
+  const { userName } = useParams();
+  useEffect(() => {
+    dispatch(getUser(userName!));
+    dispatch(getRepositories(userName!, 1));
+  }, []);
   return (
     <div>
       {error ? (
@@ -37,19 +44,7 @@ export const UserPage = () => {
                 <div className={style.following}>{user.following} following</div>
               </div>
             </div>
-
-            <div className={style.repo}>
-              <h1 className={style.title}>Repositories({user.public_repos})</h1>
-
-              {repos.map(el => (
-                <div className={style.elem} key={el.id}>
-                  <a href={el.html_url} target="blank" className={style.repoName}>
-                    {el.name}
-                  </a>
-                  <p className={style.desc}>{el.description}</p>
-                </div>
-              ))}
-            </div>
+            {user.public_repos ? <EmptyPage /> : <Repos />}
           </div>
           <Pagination />
         </div>
