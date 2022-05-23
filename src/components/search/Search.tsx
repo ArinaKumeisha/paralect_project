@@ -22,7 +22,6 @@ export const Search = ({ name, setName }: Props) => {
   const getUserHandler = () => {
     if (name) {
       dispatch(getUser(name));
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       dispatch(getRepositories(name, 1));
       navigate(`/user/${name}`);
     }
