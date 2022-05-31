@@ -22,9 +22,10 @@ export const UserPage = () => {
   const loading = useSelector<RootState, boolean>(state => state.userReducer.loading);
   const dispatch = useDispatch();
   const { userName } = useParams();
+  const currentPage = 1;
   useEffect(() => {
     dispatch(getUser(userName!));
-    dispatch(getRepositories(userName!, 1));
+    dispatch(getRepositories(userName!, currentPage));
   }, []);
 
   if (error) {
