@@ -11,7 +11,6 @@ import { getRepositories } from 'redux/userReducer';
 export const Pagination = () => {
   const dispatch = useDispatch();
   const name = useSelector<RootState, string>(state => state.userReducer.user.name);
-  const [active, setActive] = useState(false);
   const pageRepoCount = useSelector<RootState, number>(
     state => state.userReducer.user.public_repos,
   );

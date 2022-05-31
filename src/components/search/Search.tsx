@@ -1,12 +1,11 @@
 import React, { ChangeEvent } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import style from './Search.module.scss';
 
 import personIcon from 'mainStyles/svg/personIcon.svg';
-import { RootState } from 'redux/store';
 import { getRepositories, getUser } from 'redux/userReducer';
 
 type Props = {
@@ -16,16 +15,14 @@ type Props = {
 export const Search = ({ name, setName }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentPage = useSelector<RootState, number>(
-    state => state.userReducer.currentPage,
-  );
   const searchName = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);
   };
   const getUserHandler = () => {
+    const currentPage = 1;
     if (name) {
       dispatch(getUser(name));
-      dispatch(getRepositories(name, 1));
+      dispatch(getRepositories(name, currentPage));
       navigate(`/user/${name}`);
     }
   };
